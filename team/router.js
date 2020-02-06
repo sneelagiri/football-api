@@ -32,4 +32,15 @@ router.get("/team/:id", (req, res, next) => {
     .catch(next);
 });
 
+router.put("/team/:id", (req, res, next) => {
+  Team.findByPk(req.params.id)
+    .then(team => {
+      if (team) {
+        team.update(req.body).then(team => res.json(team));
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch(next);
+});
 module.exports = router;
